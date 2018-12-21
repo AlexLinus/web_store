@@ -2217,3 +2217,11 @@ textarea.input {
   display: block;
   max-width: 80%;
 }
+.form-quantity-wrapper {
+  overflow: hidden;
+  display: block;
+}
+.item-quantity form input {
+  display: block;
+  width: 90%;
+}
