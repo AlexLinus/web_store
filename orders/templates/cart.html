@@ -88,7 +88,7 @@
                                 {% for item in cart.items.all %}
                                     <div class="order-col item-order-total" data-id="{{ item.id }}">
                                         <div><span class="item-quantity-total-{{ item.id }}">{{ item.quantity }}</span>x {{ item.product.title }}</div>
-                                        <div><span class="item-price item-price-total-{{ item.id }}" data-test="Хрен">{{ item.price }}</span> руб.</div>
+                                        <div><span class="item-price item-price-total-{{ item.id }}">{{ item.price }}</span> руб.</div>
                                     </div>
                                 {% endfor %}
 

@@ -1,0 +1,66 @@
+    <script>
+
+    $(document).ready(function(){
+        $('.add-to-cart-btn').on('click', function (e) {
+            e.preventDefault();
+            product_slug = $(this).attr('data-slug');
+            data = {
+                product_slug : product_slug
+            }
+            $.ajax({
+                type: "GET",
+                url: '{% url 'add_to_cart_url' %}',
+                data: data,
+                success: function (data) {
+                    $('#cart_count').html(data.cart_total)
+                }
+            })
+        })
+        $('.delete-button').on('click', function(e){
+            e.preventDefault();
+            product_slug = $(this).attr('data-slug');
+            data = {
+                product_slug : product_slug
+            }
+            product_id = $(this).attr('data-id')
+            $.ajax({
+                type: "GET",
+                url: '{% url 'remove_from_cart_url' %}',
+                data: data,
+                success: function (data) {
+                    $('#cart_count').html(data.cart_total);
+                    $('#order-item-'+product_id).remove();
+                    console.log('Сработало! ID: '+product_id);
+                }
+            })
+        })
+    })
+
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('.cart-item-qty').on('change', function (e) {
+                qty = $(this).val();
+                item_id = $(this).attr('data-id');
+                item_price = $(this).attr('data-price');
+                total_item_price = qty*item_price;
+                $('.item-price-total-'+item_id).html(total_item_price);
+                $('.item-quantity-total-'+item_id).html(qty);
+                $('')
+                console.log('Количество: '+qty)
+                console.log('Item ID: '+ item_id)
+                data = {
+                    qty: qty,
+                    item_id: item_id
+                }
+                $.ajax({
+                    type: "GET",
+                    url: '{% url 'change_item_qty_url' %}',
+                    data: data,
+                    success: function (data) {
+                        $('.order-total').html(data.cart_total_price);
+                    }
+                })
+            })
+        })
+    </script>
