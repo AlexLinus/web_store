@@ -22,9 +22,9 @@
 			<!-- /container -->
 		</div>
 		<!-- /BREADCRUMB -->
-
+        {% if cart.items.count > 0 %}
 		<!-- SECTION -->
-		<div class="section">
+		<div class="section" id="cart-section">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
@@ -37,7 +37,7 @@
                         <div class="order-notes">
                         {% for item in cart.items.all %}
 						<!-- Order notes -->
-                            <div class="row" id="order-item-{{ item.product.id }}">
+                            <div class="row" id="order-item-{{ item.id }}">
 
 						<div class="order-item col-xs-12">
 
@@ -63,7 +63,7 @@
                                 <div class="col-sm-3">
                                     <div class="row">
                                         <div class="col-xs-12 price-item-cart"><strong>{{ item.product.price }} руб</strong></div>
-                                        <div class="col-xs-12"><a href="#" class="remove-item-button delete-button btn btn-danger" data-slug="{{ item.product.slug }}" data-id="{{ item.product.id }}">Удалить</a></div>
+                                        <div class="col-xs-12"><a href="#" class="remove-item-button delete-button btn btn-danger" data-slug="{{ item.product.slug }}" data-id="{{ item.id }}">Удалить</a></div>
                                     </div>
                                 </div>
 
@@ -86,16 +86,11 @@
 							</div>
 							<div class="order-products">
                                 {% for item in cart.items.all %}
-                                    <div class="order-col item-order-total" data-id="{{ item.id }}">
+                                    <div class="order-col item-order-total" id="item-order-total-{{ item.id }}" data-id="{{ item.id }}">
                                         <div><span class="item-quantity-total-{{ item.id }}">{{ item.quantity }}</span>x {{ item.product.title }}</div>
                                         <div><span class="item-price item-price-total-{{ item.id }}">{{ item.price }}</span> руб.</div>
                                     </div>
                                 {% endfor %}
-
-								<div class="order-col">
-									<div>2x Product Name Goes Here</div>
-									<div>$980.00</div>
-								</div>
 							</div>
 							<div class="order-col">
 								<div>Shiping</div>
@@ -106,46 +101,8 @@
 								<div><strong class="order-total">{{ cart.cart_total }}</strong> руб</div>
 							</div>
 						</div>
-						<div class="payment-method">
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
-								<label for="payment-1">
-									<span></span>
-									Direct Bank Transfer
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-2">
-								<label for="payment-2">
-									<span></span>
-									Cheque Payment
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-3">
-								<label for="payment-3">
-									<span></span>
-									Paypal System
-								</label>
-								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-								</div>
-							</div>
-						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="terms">
-							<label for="terms">
-								<span></span>
-								I've read and accept the <a href="#">terms & conditions</a>
-							</label>
-						</div>
-						<a href="#" class="primary-btn order-submit">Place order</a>
+
+						<a href="{% url 'get_checkout_url' %}" class="primary-btn order-submit">Оформить заказ</a>
 					</div>
 					<!-- /Order Details -->
 				</div>
@@ -154,4 +111,27 @@
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+        {% endif %}
+        {% if cart.items.count == 0 %}
+            <div class="section" id="cart-empty">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="empty-cart-title">Извините, но корзина пуста!</h1>
+                            <p>Добавьте, что нибудь в корзину. Перейти на главную <a href="/">ТЫЦ!</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="section" id="cart-empty" style="display: none;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="empty-cart-title">Извините, но корзина пуста!</h1>
+                        <p>Добавьте, что нибудь в корзину. Перейти на главную <a href="/">ТЫЦ!</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
 {% endblock %}

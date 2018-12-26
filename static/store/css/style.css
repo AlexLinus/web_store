@@ -562,7 +562,6 @@ textarea.input {
 
 .cart-dropdown .cart-list {
   max-height: 180px;
-  overflow-y: scroll;
   margin-bottom: 15px;
 }
 
@@ -590,8 +589,9 @@ textarea.input {
 }
 
 .cart-dropdown .cart-btns>a {
-  display: inline-block;
-  width: calc(50% - 0px);
+  display: block;
+  width: 90%;
+  margin: 5px auto;
   padding: 12px;
   background-color: #D10024;
   color: #FFF;
@@ -602,7 +602,6 @@ textarea.input {
 }
 
 .cart-dropdown .cart-btns>a:first-child {
-  margin-right: -4px;
   background-color: #1e1f29;
 }
 
@@ -955,7 +954,7 @@ textarea.input {
   z-index: 10;
 }
 
-.product .product-body .product-rating>i.fa-star {
+.product .product-body .product-rating>i.fa-star, .product .product-body .product-rating form input.fa-star{
   color: #ef233c;
 }
 
@@ -2224,4 +2223,49 @@ textarea.input {
 .item-quantity form input {
   display: block;
   width: 90%;
+}
+#cart-empty {
+  padding: 80px 0;
+}
+#cart-empty p {
+  font-size: 20px;
+}
+
+/* MANAGER PANEL */
+
+.orders-total-panel h4 {
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+}
+
+.orders-total-panel {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.orders-total-panel {
+  background: #15161D;
+  border: 2px solid #000000;
+}
+
+.orders-total-panel-new {
+  background: #D10024;
+}
+
+.block-orders-type {
+  margin-top: 30px;
+}
+
+.block-orders-type h4 {
+  margin-bottom: 20px;
+}
+
+.thead-dark {
+  background: #15161D;
+  color: #FFFFFF;
+}
+
+.status-ok {
+  color: green;
 }

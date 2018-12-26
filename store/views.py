@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Product, Category, ProductImage
 from django.shortcuts import get_object_or_404
+from django.core.paginator import Paginator
 # Create your views here.
 def home(request):
     newest = Product.objects.filter(is_active=True, available=True)[:6]
@@ -13,7 +14,16 @@ def get_product_detail(request, category_slug, product_slug):
 
 def get_category_detail(request, category_slug):
     category = get_object_or_404(Category, slug__iexact=category_slug)
-    return render(request, 'category_detail.html', context={'category': category})
+    items = Product.objects.filter(category__exact=category)
+    print(items)
+    paginator = Paginator(items, 9)
+    try:
+        page = int(request.GET.get('page'))
+    except:
+        page = 1
+    print(paginator)
+
+    return render(request, 'category_detail.html', context={'category': paginator.page(page)})
 
 def search_form(request):
     search_query = request.GET.get('searchproduct', '')
@@ -27,8 +37,9 @@ def search_form(request):
             categories_all = Category.objects.all()
             for category in categories_all:
                 if search_query in str(category).lower():
-                   categories = category
-                   break
+                    categories = category
+                    print(categories)
+                    break
             #ЕЕе бой я сделл это! Теперь всё работает хорошо! Ищет и по категориям, если по продуктам не нашло.
 
             if categories:
@@ -39,3 +50,4 @@ def search_form(request):
                 return render(request, 'search.html', context={'search_query': search_query, 'search_alert': 'Извините, но мы не смогли ничего найти по запросу "{}". Попробуйте поискать что-нибудь другое.'.format(search_query)})
     else:
         return render(request, 'search.html', context={'search_query': '', 'search_alert': 'Извините, но вы ничего не указали для поиска!'})
+

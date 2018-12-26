@@ -8,10 +8,10 @@ class OrderItemInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'phone', 'create_date']
-    inlines = [OrderItemInline]
-
+#    inlines = [OrderItemInline]
+#
     class Meta:
-        model = Order
+       model = Order
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Cart)

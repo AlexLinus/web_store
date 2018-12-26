@@ -7,7 +7,9 @@ urlpatterns = [
     path('remove_from_cart/', views.remove_from_cart_view, name='remove_from_cart_url'),
     path('change_item_qty/', views.change_item_qty, name='change_item_qty_url'),
     path('order/', views.get_checkout, name='get_checkout_url'),
+    path('order_finish/<str:order_id>/', views.finish_checkout, name='finish_checkout_url'),
     path('cart/', views.get_cart, name='get_cart_url'),
+    path('manager/', views.get_manager_panel, name='get_manager_panel_url'),
 ]
 
 #Остановился на 21 уроке. Удаление товара динамическое еще не посмотрел.

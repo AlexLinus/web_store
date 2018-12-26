@@ -19,18 +19,28 @@
         $('.delete-button').on('click', function(e){
             e.preventDefault();
             product_slug = $(this).attr('data-slug');
+            product_id = $(this).attr('data-id')
             data = {
                 product_slug : product_slug
             }
-            product_id = $(this).attr('data-id')
             $.ajax({
                 type: "GET",
                 url: '{% url 'remove_from_cart_url' %}',
                 data: data,
                 success: function (data) {
                     $('#cart_count').html(data.cart_total);
+                    my_test = $('#item-order-total-'+product_id);
+                    console.log(product_id);
+                    $('#item-order-total-'+product_id).remove();
                     $('#order-item-'+product_id).remove();
-                    console.log('Сработало! ID: '+product_id);
+                    console.log('Сработало удаление слева!')
+                    $('.order-total').html(data.cart_total_price);
+                    console.log(data.cart_total);
+                    if (data.cart_total <= 0){
+                        $('#cart-section').css("display", "none");
+                        $('#cart-empty').css("display", "block");
+                    }
+
                 }
             })
         })
@@ -46,7 +56,6 @@
                 total_item_price = qty*item_price;
                 $('.item-price-total-'+item_id).html(total_item_price);
                 $('.item-quantity-total-'+item_id).html(qty);
-                $('')
                 console.log('Количество: '+qty)
                 console.log('Item ID: '+ item_id)
                 data = {
